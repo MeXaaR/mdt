@@ -1,25 +1,25 @@
 Package.describe({
-  name: "mexar:mdt",
-  version: "0.0.3",
+  name: 'mexar:mdt',
+  version: '0.0.4',
   // Brief, one-line summary of the package.
-  summary: "Some open source toys to play in meteor",
+  summary: 'Some open source toys to play in meteor',
   // URL to the Git repository containing the source code for this package.
-  git: "https://github.com/MeXaaR/mdt.git",
+  git: 'https://github.com/MeXaaR/mdt.git',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
-  documentation: "README.md",
-  debugOnly: true
+  documentation: 'README.md',
+  debugOnly: true,
 });
 
-Package.onUse(api => {
-  api.versionsFrom("1.9");
-  api.use("ecmascript");
-  api.use("mongo");
-  api.use("tracker");
-  api.mainModule("./client/index.jsx", "client");
-  api.mainModule("./server/index.js", "server");
+Package.onUse((api) => {
+  api.versionsFrom('1.9');
+  api.use('ecmascript');
+  api.use('mongo');
+  api.use('tracker');
+  api.mainModule('./client/index.jsx', 'client');
+  api.mainModule('./server/index.js', 'server');
   // Client Files
-  api.addFiles([], "client");
+  api.addFiles([], 'client');
 });
 
 // TO DO TESTS
@@ -32,8 +32,8 @@ Package.onUse(api => {
 
 // This lets you use npm packages in your package:
 Npm.depends({
-  react: "16.10.0",
-  "react-dom": "16.10.0",
-  "styled-components": "5.0.1",
-  "react-json-view": "1.19.1"
+  react: '16.10.0',
+  'react-dom': '16.10.0',
+  'styled-components': '5.0.1',
+  'react-json-view': '1.19.1',
 });

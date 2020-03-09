@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from "react";
-import useLocalStorage from "./useLocalstorage";
+import React, { createContext, useState, useEffect } from 'react';
+import useLocalStorage from './useLocalstorage';
 
 const options = {
   enableClipboard: false,
@@ -10,38 +10,36 @@ const options = {
   activateEdit: true,
   activateAdd: false,
   activateDelete: false,
-  logActions: false
+  logActions: false,
 };
 
 const initialState = {
   autopublish: null,
   loading: false,
-  options: null
+  options: null,
 };
 export const MDTContext = createContext(initialState);
 
-const useLoggerState = init => {
+const useLoggerState = (init) => {
   const [state, setState] = useState(init);
 
-  const handleChanges = args => {
+  const handleChanges = (args) => {
     const { logActions } = state;
     const newState = {
       ...state,
-      ...args
+      ...args,
     };
     if (logActions) {
-      console.groupCollapsed(
-        `=== MDT Action: ${Object.keys(args).join(",")} ===`
-      );
-      console.log("Prev state: ", state);
-      Object.keys(args).forEach(key => {
-        if (key === "options") {
+      console.groupCollapsed(`=== MDT Action: ${Object.keys(args).join(',')} ===`);
+      console.log('Prev state: ', state);
+      Object.keys(args).forEach((key) => {
+        if (key === 'options') {
         }
-        console.groupCollapsed("Key Changed:", key);
-        console.log("New value:", args[key]);
+        console.groupCollapsed('Key Changed:', key);
+        console.log('New value:', args[key]);
         console.groupEnd();
       });
-      console.log("Next state: ", newState);
+      console.log('Next state: ', newState);
       console.groupEnd();
     }
     setState(newState);
@@ -51,10 +49,7 @@ const useLoggerState = init => {
 
 const MDTProvider = ({ children }) => {
   const [globalState, setGlobalState] = useLoggerState(initialState);
-  const [storage, setLocalStorage] = useLocalStorage(
-    "MDT-options",
-    globalState.options
-  );
+  const [storage, setLocalStorage] = useLocalStorage('MDT-options', options);
 
   useEffect(() => {
     if (!globalState.options && !storage) {
@@ -67,11 +62,7 @@ const MDTProvider = ({ children }) => {
     }
   }, [globalState.options]);
 
-  return (
-    <MDTContext.Provider value={[globalState, setGlobalState]}>
-      {children}
-    </MDTContext.Provider>
-  );
+  return <MDTContext.Provider value={[globalState, setGlobalState]}>{children}</MDTContext.Provider>;
 };
 
 export default MDTProvider;
