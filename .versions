@@ -23,7 +23,7 @@ id-map@1.1.0
 inter-process-messaging@0.1.0
 logging@1.1.20
 meteor@1.9.3
-mexar:meteordevtools@0.0.1
+mexar:mdt@0.0.2
 minimongo@1.4.5
 modern-browsers@0.1.5
 modules@0.15.0
