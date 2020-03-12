@@ -1,6 +1,6 @@
 Package.describe({
   name: 'mexar:mdt',
-  version: '0.0.4',
+  version: '0.0.5',
   // Brief, one-line summary of the package.
   summary: 'Some open source toys to play in meteor',
   // URL to the Git repository containing the source code for this package.
@@ -16,6 +16,7 @@ Package.onUse((api) => {
   api.use('ecmascript');
   api.use('mongo');
   api.use('tracker');
+  api.use('accounts-password');
   api.mainModule('./client/index.jsx', 'client');
   api.mainModule('./server/index.js', 'server');
   // Client Files

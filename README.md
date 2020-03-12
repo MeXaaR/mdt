@@ -11,9 +11,16 @@ The main feature is the small UI to check the database and have the autopublish 
 $ meteor add mexar:mdt
 ```
 
+## Features so far
+
+- Autopublish
+- List collections
+- Edit, delete and duplicate documents
+- Impersonate anyone
+- Edit MDT options
+
 ## TO DO
 
-- Impersonnate (the very next one)
 - Offline/Online toggle
 - List methods and call them
 - List publications and call them

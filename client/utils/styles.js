@@ -7,7 +7,7 @@ const BACKGROUND_COLOR_COLLECTION = 'rgba(43,63,83,.92)';
 
 export const CollectionListerWrapper = styled.div`
   font-family: Liberation Mono, Courier, Lucidatypewriter, Fixed, monospace !important;
-  z-index: 100000;
+  z-index: 10000;
   position: fixed;
   bottom: 0px;
   background-color: ${BACKGROUND_COLOR};
@@ -21,6 +21,7 @@ export const CollectionListerWrapper = styled.div`
   overflow: hidden;
   max-height: 100%;
   user-select: none;
+  border-top-right-radius: 5px;
 `;
 
 export const ActionZone = styled.div`
@@ -45,11 +46,16 @@ export const IconWrapper = styled.div`
   justify-content: center;
   align-items: center;
   user-select: none;
+  margin: 5px;
   svg {
-    stroke: #fff;
-    opacity: 0.5;
+    fill: lightgrey;
+    stroke: lightgrey;
     height: 60%;
     width: 60%;
+    &:hover {
+      fill: salmon;
+      stroke: salmon;
+    }
   }
 `;
 
@@ -63,6 +69,9 @@ export const ListerHeader = styled.div`
   display: flex;
   justify-content: space-between;
   user-select: none;
+  span {
+    cursor: pointer;
+  }
 `;
 export const CollectionHeader = styled.div`
   font-size: 14px;
@@ -73,6 +82,7 @@ export const CollectionHeader = styled.div`
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   user-select: none;
   background-color: ${({ selected }) => (selected ? 'black' : BACKGROUND_COLOR_COLLECTION)};
   &:hover {
@@ -127,10 +137,69 @@ export const MenuContainer = styled.div`
     &:hover {
       background-color: ${BACKGROUND_COLOR_HOVER};
       svg {
+        fill: salmon;
       }
     }
     svg {
-      stroke: grey;
+      height: 25px;
+      fill: grey;
     }
+  }
+`;
+
+export const LedSignal = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: ${({ light }) => (light ? 'green' : 'red')};
+`;
+
+export const BigToolContainer = styled.div`
+  font-family: Liberation Mono, Courier, Lucidatypewriter, Fixed, monospace !important;
+  z-index: 100000;
+  background-color: ${BACKGROUND_COLOR_COLLECTION};
+  min-width: 350px;
+  max-width: 350px;
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 100%;
+  user-select: none;
+  border-radius: 5px;
+  input {
+    margin: 3px;
+  }
+  ul {
+    margin: 0px;
+    padding: 8px;
+    li {
+      color: white;
+      padding: 2px;
+      border-bottom: 1px solid gray;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      &:hover {
+        background-color: ${BACKGROUND_COLOR_HOVER};
+      }
+      span {
+        color: grey;
+      }
+    }
+    li:last-child {
+      border-bottom: none;
+    }
+  }
+`;
+
+export const ImpersonateUserData = styled.div`
+  color: white;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  span {
+    color: grey;
   }
 `;

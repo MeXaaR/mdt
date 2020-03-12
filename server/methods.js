@@ -41,9 +41,19 @@ Meteor.methods({
       throw new Meteor.Error(err.code, err.errmsg);
     }
   },
+  'MDT.usersToImpersonate': ({ search }) => {
+    const regex = new RegExp(search, 'i');
+    const fieldsToSearch = ['_id', 'emails.address', 'username'];
+    const searchQuery = fieldsToSearch.map((field) => ({ [field]: { $regex: regex } }));
+    const query = {
+      $or: searchQuery,
+    };
+
+    return Meteor.users.find(query, { limit: 5, sort: { _id: 1 } }).fetch();
+  },
 });
 
-Meteor.publish('MDT.autopublish', () => Object.keys(collections).map((name) => collections[name].find()));
+Accounts.registerLoginHandler('MDT.impersonateUser', ({ userId }) => ({ userId }));
 
 // Methods Meteor
 // default_server.publish_handlers: get all publications
