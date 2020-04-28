@@ -1,4 +1,5 @@
 import { MongoInternals, Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
 
 export const collections = {};
 const publications = [];
@@ -15,6 +16,19 @@ Meteor.startup(async () => {
 });
 
 Meteor.methods({
+  'MDT.getMethods': ({ search = '' }) => {
+    const methodsArray = [];
+    const methodsKeys = Object.keys(Meteor.server.method_handlers);
+
+    methodsKeys.forEach((key) => {
+      if (key[0] !== '/' && key.search('MDT.') === -1) {
+        if ((search && key.search(search) !== -1) || !search) {
+          methodsArray.push(key);
+        }
+      }
+    });
+    return methodsArray;
+  },
   'MDT.getCollections': () => collections,
   'MDT.updateItem': ({
     key, value, collection, itemId,

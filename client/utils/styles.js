@@ -168,12 +168,20 @@ export const BigToolContainer = styled.div`
   max-height: 100%;
   user-select: none;
   border-radius: 5px;
+  margin: 5px;
   input {
     margin: 3px;
   }
   ul {
     margin: 0px;
     padding: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    ::-webkit-scrollbar {
+      display: none !important;
+      user-select: none;
+    }
     li {
       color: white;
       padding: 2px;
@@ -191,6 +199,9 @@ export const BigToolContainer = styled.div`
     li:last-child {
       border-bottom: none;
     }
+    li.selected {
+      background-color: ${BACKGROUND_COLOR_HOVER};
+    }
   }
 `;
 
@@ -201,5 +212,26 @@ export const ImpersonateUserData = styled.div`
   flex-direction: column;
   span {
     color: grey;
+  }
+`;
+export const MethodData = styled.div`
+  color: white;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  span {
+    color: grey;
+  }
+  .react-json-view {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    pre {
+      color: grey;
+    }
+    .object-key {
+      color: salmon !important;
+    }
   }
 `;

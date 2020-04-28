@@ -28,7 +28,7 @@ inter-process-messaging@0.1.0
 localstorage@1.2.0
 logging@1.1.20
 meteor@1.9.3
-mexar:mdt@0.0.5
+mexar:mdt@0.0.6
 minimongo@1.4.5
 modern-browsers@0.1.5
 modules@0.15.0

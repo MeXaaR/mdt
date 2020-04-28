@@ -18,11 +18,11 @@ $ meteor add mexar:mdt
 - Edit, delete and duplicate documents
 - Impersonate anyone
 - Edit MDT options
+- List methods and call them
 
 ## TO DO
 
 - Offline/Online toggle
-- List methods and call them
 - List publications and call them
 - list of subscriptions and ability to stop them
 - See server logs ? (why not)
