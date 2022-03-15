@@ -1,5 +1,5 @@
-import { MongoInternals, Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
+import { MongoInternals, Mongo } from "meteor/mongo";
+import { Meteor } from "meteor/meteor";
 
 export const collections = {};
 const publications = [];
@@ -7,8 +7,8 @@ const publications = [];
 Meteor.startup(async () => {
   const internals = await MongoInternals.defaultRemoteCollectionDriver();
   const { db } = internals.mongo;
-  const collectionsData = await db.listCollections();
-  collectionsData.each((n, collection) => {
+  const collectionsData = await db.listCollections().toArray();
+  collectionsData.forEach((collection) => {
     if (collection) {
       collections[`${collection.name}`] = internals.open(collection.name);
     }
@@ -16,12 +16,12 @@ Meteor.startup(async () => {
 });
 
 Meteor.methods({
-  'MDT.getMethods': ({ search = '' }) => {
+  "MDT.getMethods": ({ search = "" }) => {
     const methodsArray = [];
     const methodsKeys = Object.keys(Meteor.server.method_handlers);
 
     methodsKeys.forEach((key) => {
-      if (key[0] !== '/' && key.search('MDT.') === -1) {
+      if (key[0] !== "/" && key.search("MDT.") === -1) {
         if ((search && key.search(search) !== -1) || !search) {
           methodsArray.push(key);
         }
@@ -29,34 +29,42 @@ Meteor.methods({
     });
     return methodsArray;
   },
-  'MDT.getCollections': () => collections,
-  'MDT.updateItem': ({ key, value, collection, itemId }) => {
+  "MDT.getCollections": () => collections,
+  "MDT.updateItem": ({ key, value, collection, itemId }) => {
     try {
-      return collections[collection].update({ _id: itemId }, { $set: { [key]: value } });
+      return collections[collection].update(
+        { _id: itemId },
+        { $set: { [key]: value } }
+      );
     } catch ({ err }) {
       throw new Meteor.Error(err.code, err.errmsg);
     }
   },
-  'MDT.deleteItem': ({ itemId, collection }) => {
+  "MDT.deleteItem": ({ itemId, collection }) => {
     try {
       return collections[collection].remove({ _id: itemId });
     } catch ({ err }) {
       throw new Meteor.Error(err.code, err.errmsg);
     }
   },
-  'MDT.duplicateItem': ({ itemId, collection }) => {
+  "MDT.duplicateItem": ({ itemId, collection }) => {
     try {
       const item = collections[collection].findOne({ _id: itemId });
       delete item._id;
-      return collections[collection].insert({ _id: new Mongo.ObjectID()._str, ...item });
+      return collections[collection].insert({
+        _id: new Mongo.ObjectID()._str,
+        ...item,
+      });
     } catch ({ err }) {
       throw new Meteor.Error(err.code, err.errmsg);
     }
   },
-  'MDT.usersToImpersonate': ({ search }) => {
-    const regex = new RegExp(search, 'i');
-    const fieldsToSearch = ['_id', 'emails.address', 'username'];
-    const searchQuery = fieldsToSearch.map((field) => ({ [field]: { $regex: regex } }));
+  "MDT.usersToImpersonate": ({ search }) => {
+    const regex = new RegExp(search, "i");
+    const fieldsToSearch = ["_id", "emails.address", "username"];
+    const searchQuery = fieldsToSearch.map((field) => ({
+      [field]: { $regex: regex },
+    }));
     const query = {
       $or: searchQuery,
     };
@@ -65,8 +73,8 @@ Meteor.methods({
   },
 });
 
-Accounts.registerLoginHandler('MDT.impersonateUser', (options) =>
-  options.impersonateId ? { userId: options.impersonateId } : undefined,
+Accounts.registerLoginHandler("MDT.impersonateUser", (options) =>
+  options.impersonateId ? { userId: options.impersonateId } : undefined
 );
 
 // Methods Meteor
